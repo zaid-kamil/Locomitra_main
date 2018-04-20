@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Locomitra</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_ham_burger">Ham_burger</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_savecontact_list">Items</string>
+    <string name="title_savecontact_detail">Save_Contact Detail</string>
+    <string name="msg">Saves</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="service_not_available">location service not available</string>
+    <string name="invalid_lat_long_used">invalid Latitude longitude data</string>
+    <string name="no_address_found">No address was found</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invitation_title">Locomitra Invitation</string>
+    <string name="invitation_message">Please Install the useful app</string>
+    <string name="invitation_deep_link">shubham</string>
+
+    <string name="invitation_cta">asd</string>
+
+</resources>

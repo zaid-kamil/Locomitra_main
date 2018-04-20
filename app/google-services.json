@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "255945666253",
+    "firebase_url": "https://locomitramain.firebaseio.com",
+    "project_id": "locomitramain",
+    "storage_bucket": "locomitramain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255945666253:android:b0673f52e4e7d4c4",
+        "android_client_info": {
+          "package_name": "com.digipodium.derish.locomitra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255945666253-cmbk1g15np0acn3qln3sf0vonpele057.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digipodium.derish.locomitra",
+            "certificate_hash": "7f4553fbb85e8f7aa5c28b94a0e8503e44a578b4"
+          }
+        },
+        {
+          "client_id": "255945666253-n0ouv41f7bsssistk2ok4om2t8n2bvlc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digipodium.derish.locomitra",
+            "certificate_hash": "9827b1b18c718484b21acc10c8c05713108d20e7"
+          }
+        },
+        {
+          "client_id": "255945666253-e3ptlftbf6a7di5n8kjjq2jbhhv2se46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANWN-zGhUC2AlxAgt6CDdmLKdazJtaEhs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255945666253-e3ptlftbf6a7di5n8kjjq2jbhhv2se46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

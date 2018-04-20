@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.digipodium.derish.locomitra.profileactivity">
+
+
+    <item
+        android:id="@+id/action_syns"
+        android:icon="@android:drawable/stat_notify_sync"
+        android:title="Sync"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_invite"
+
+        android:icon="@drawable/s"
+        android:title="Invite"
+        android:tooltipText="Share"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_help"
+        android:title="Help" />
+
+
+    <item
+        android:id="@+id/action_settings"
+
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_exit"
+        android:title="Exit" />
+
+</menu>
