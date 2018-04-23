@@ -42,13 +42,13 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
     private DatabaseReference mRootDatabaseRef;
 
     private FirebaseAuth mAuth;
-    private ProgressDialog dialog ;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        mSignInbtn =  findViewById(R.id.signup);
+        mSignInbtn = findViewById(R.id.signup);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -66,15 +66,10 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
             }
         });
 
-        // Configure Google Sign In
-
-
-
-
 
     }
 
-    private void SignIn(){
+    private void SignIn() {
         // ProgressDialog
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle("Signing In");
@@ -89,16 +84,16 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                // Google Sign-In was successful, authenticate with Firebase
+
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                // Google Sign-In failed
-                //Log.e(TAG, "Google Sign-In failed.");
+String status=result.getStatus().getStatusMessage();
+                Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -120,21 +115,17 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
                             assert current_User != null;
                             final String current_user_uid = current_User.getUid();
                             mRootDatabaseRef = FirebaseDatabase.getInstance().getReference().child("users").child(current_user_uid);
-                            Profile profile=new Profile("","","",current_User.getEmail(),"","",false);
+                            Profile profile = new Profile("", "", "", current_User.getEmail(), "", "", false);
                             mRootDatabaseRef.setValue(profile);
                         }
                     }
                 });
     }
 
-    private void sendToHome(){
+    private void sendToHome() {
         startActivity(new Intent(signinactivity.this, Home.class));
         finish();
     }
-
-
-
-
 
 
     @Override
@@ -146,19 +137,20 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        if (currentUser!=null){
-            startActivity(new Intent( this,Home.class));
+        if (currentUser != null) {
+            startActivity(new Intent(this, Home.class));
             finish();
         }
     }
 
-    public void showDialog(String msg){
+    public void showDialog(String msg) {
         dialog = new ProgressDialog(this);
         dialog.setMessage(msg);
         dialog.show();
     }
-    public void hideDialog(){
-        if (dialog!=null && dialog.isShowing()){
+
+    public void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
     }

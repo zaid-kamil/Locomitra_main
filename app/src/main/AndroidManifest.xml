@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
     package="com.digipodium.derish.locomitra">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -31,6 +31,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".signinactivity" />
+        <activity android:name=".InviteReceive" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".Home" />
         <activity
             android:name=".MapActivity"
@@ -49,7 +51,7 @@
         <activity android:name=".AllContacts" />
         <activity android:name=".Save_Contact"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".InviteReceive" />
+
         <activity
             android:name=".Show_details"
             android:label="Contact"

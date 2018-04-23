@@ -103,7 +103,6 @@ public class profileactivity extends AppCompatActivity {
         });
 
     }
-
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -127,9 +126,14 @@ public class profileactivity extends AppCompatActivity {
 
     private void saveProfileInfo() {
         int c = 0;
+        String imageurl = null;
         String Username = etname.getText().toString();
         String UserPhone = etphone.getText().toString();
-        String imageurl = fullPhotoUri.toString();
+        if (!fullPhotoUri.toString().isEmpty()) {
+
+            imageurl = fullPhotoUri.toString();
+        }
+
         if (UserPhone.length() == 10) {
             c = 1;
         }
@@ -139,7 +143,7 @@ public class profileactivity extends AppCompatActivity {
             gender = "Male";
         else
             gender = "Female";
-        if (!Username.isEmpty() && !UserPhone.isEmpty() && c == 1&&!imageurl.isEmpty()) {
+        if (!Username.isEmpty() && !UserPhone.isEmpty() && c == 1&&imageurl.isEmpty()) {
 
             mdb.getReference().child("users").child(uid).child("phone").setValue(UserPhone);
             mdb.getReference().child("users").child(uid).child("uname").setValue(Username);

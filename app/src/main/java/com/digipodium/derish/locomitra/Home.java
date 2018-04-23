@@ -11,15 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private FirebaseAuth mAuth;
-
+    TextView useremail;
+    private DatabaseReference firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class Home extends AppCompatActivity
             startActivity(it);
 
         } else if (id == R.id.nav_logout) {
-          mAuth.signOut();
+            FirebaseAuth.getInstance().signOut();
 
         }
 

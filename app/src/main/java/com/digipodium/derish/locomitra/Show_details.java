@@ -34,7 +34,7 @@ public class Show_details extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         final List<String> tasks = new ArrayList<>();
-        taskdb =(DatabaseReference) fbase.getReference("User_Contact").child(uid);
+        taskdb =fbase.getReference("User_Contact").child(uid);
         taskdb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -61,6 +61,18 @@ public class Save_Contact extends AppCompatActivity {
         final EditText etname = findViewById(R.id.etname);
         final EditText etmail = findViewById(R.id.etmail);
         final EditText etphone = findViewById(R.id.etphone);
+        Intent intent = getIntent();
+        Bundle bd = intent.getExtras();
+        if(bd != null)
+        {
+            String getName = (String) bd.get("name");
+            String getnumber = (String) bd.get("no");
+
+            etname.setText(getName);
+            etphone.setText(getnumber);
+
+        }
+
         String name = etname.getText().toString();
         String mail = etmail.getText().toString();
         String phone = etphone.getText().toString();
