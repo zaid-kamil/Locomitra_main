@@ -92,7 +92,7 @@ public class signinactivity extends AppCompatActivity implements GoogleApiClient
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-String status=result.getStatus().getStatusMessage();
+                String status = result.getStatus().getStatusMessage();
                 Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
             }
         }

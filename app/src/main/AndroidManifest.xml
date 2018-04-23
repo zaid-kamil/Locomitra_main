@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".signinactivity"
             android:label="Locomitra"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signinactivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".InviteReceive" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Home" />

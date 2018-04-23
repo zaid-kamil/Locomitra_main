@@ -11,18 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    private FirebaseAuth mAuth;
-    TextView useremail;
-    private DatabaseReference firebaseDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
