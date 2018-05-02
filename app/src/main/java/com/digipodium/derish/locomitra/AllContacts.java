@@ -13,6 +13,9 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -25,14 +28,20 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static com.digipodium.derish.locomitra.AllContactsAdapter.REQUEST_INVITE;
 
 public class AllContacts extends AppCompatActivity {
-
+    List<ContactVO> contactVOList = new ArrayList();
     RecyclerView rvContacts;
+EditText searchView;
 
+    AllContactsAdapter contactAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_contacts);
         rvContacts =  findViewById(R.id.rvContacts);
+        searchView=findViewById(R.id.search);
+
+
+
 if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS,Manifest.permission.SEND_SMS))
 {
     getAllContacts();
@@ -48,7 +57,7 @@ else
     }
 
     private void getAllContacts() {
-        List<ContactVO> contactVOList = new ArrayList();
+
         ContactVO contactVO;
 
         ContentResolver contentResolver = getContentResolver();
@@ -89,10 +98,41 @@ else
                 }
             }
 
-            AllContactsAdapter contactAdapter = new AllContactsAdapter(contactVOList, this);
+          contactAdapter = new AllContactsAdapter(contactVOList, this);
             rvContacts.setLayoutManager(new LinearLayoutManager(this));
             rvContacts.setAdapter(contactAdapter);
         }
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+filter(s.toString());
+            }
+
+
+        });
+    }
+
+    private void filter(String s) {
+        ArrayList<ContactVO> newlist=new ArrayList<>();
+        for (ContactVO item : contactVOList) {
+            if (item.getContactName().toLowerCase().contains(s.toLowerCase())) {
+                newlist.add(item);
+            }
+        }
+contactAdapter.filterList(newlist);
     }
 
     @Override

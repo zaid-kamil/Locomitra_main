@@ -10,33 +10,35 @@ import android.os.Parcelable;
 public class Profile implements Parcelable {
 
     public String uname;
-    public String user;
+
     public String phone;
     public String email;
     public String gender;
     public String imageUrl;
+    public String lat;
+    public String lng;
+    public String state;
+    public String city;
+    public String areacode;
+    public String area;
     public boolean isCompleted = false;
 
     public Profile() {
     }
 
-    public Profile(String uname, String user, String phone, String email, String gender, String imageUrl, boolean isCompleted) {
-        this.uname = uname;
-        this.user = user;
-        this.phone = phone;
-        this.email = email;
-        this.gender = gender;
-        this.imageUrl = imageUrl;
-        this.isCompleted = isCompleted;
-    }
 
     protected Profile(Parcel in) {
         uname = in.readString();
-        user = in.readString();
         phone = in.readString();
         email = in.readString();
         gender = in.readString();
         imageUrl = in.readString();
+        lat = in.readString();
+        lng = in.readString();
+        state = in.readString();
+        city = in.readString();
+        areacode = in.readString();
+        area = in.readString();
         isCompleted = in.readByte() != 0;
     }
 
@@ -52,6 +54,21 @@ public class Profile implements Parcelable {
         }
     };
 
+    public Profile(String uname, String phone, String email, String gender, String imageUrl, String lat, String lng, String state, String city, String areacode, String area, boolean isCompleted) {
+        this.uname = uname;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.imageUrl = imageUrl;
+        this.lat = lat;
+        this.lng = lng;
+        this.state = state;
+        this.city = city;
+        this.areacode = areacode;
+        this.area = area;
+        this.isCompleted = isCompleted;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -60,11 +77,16 @@ public class Profile implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(uname);
-        dest.writeString(user);
         dest.writeString(phone);
         dest.writeString(email);
         dest.writeString(gender);
         dest.writeString(imageUrl);
+        dest.writeString(lat);
+        dest.writeString(lng);
+        dest.writeString(state);
+        dest.writeString(city);
+        dest.writeString(areacode);
+        dest.writeString(area);
         dest.writeByte((byte) (isCompleted ? 1 : 0));
     }
 }

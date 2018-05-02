@@ -5,17 +5,9 @@ package com.digipodium.derish.locomitra;
  */
 
 public class ContactVO {
-    private String ContactImage;
     private String ContactName;
     private String ContactNumber;
 
-    public String getContactImage() {
-        return ContactImage;
-    }
-
-    public void setContactImage(String contactImage) {
-        this.ContactImage = ContactImage;
-    }
 
     public String getContactName() {
         return ContactName;
@@ -32,4 +24,6 @@ public class ContactVO {
     public void setContactNumber(String contactNumber) {
         ContactNumber = contactNumber;
     }
+
+
 }

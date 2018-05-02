@@ -19,19 +19,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.digipodium.derish.locomitra.Models.Invite_Task;
+import com.digipodium.derish.locomitra.Models.InviteTask;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.ContactViewHolder>{
+public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.ContactViewHolder> {
 
 
-    public static final int REQUEST_INVITE=23;
+    public static final int REQUEST_INVITE = 23;
     private final Activity activity;
     private List<ContactVO> contactVOList;
     private Context mContext;
@@ -40,6 +41,7 @@ public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.
     long ran;
     private BroadcastReceiver smsSentReceiver;
     private BroadcastReceiver smsDeliveredReceiver;
+
 
     public AllContactsAdapter(List<ContactVO> contactVOList, Activity mContext) {
         this.contactVOList = contactVOList;
@@ -67,6 +69,11 @@ public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.
         return contactVOList.size();
     }
 
+    public void filterList(ArrayList<ContactVO> newlist) {
+        contactVOList = newlist;
+        notifyDataSetChanged();
+    }
+
     public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivContactImage;
@@ -86,25 +93,24 @@ public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.
             inviteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  ran=  (new Date()).getTime();
-                    final String contact_name=tvContactName.getText().toString();
-                    final String contact_number=tvPhoneNumber.getText().toString();
-                    Invite_Task obj=new Invite_Task(contact_name,contact_number,ran,"",true);
-
+                    ran = (new Date()).getTime();
+                    final String contact_name = tvContactName.getText().toString();
+                    final String contact_number = tvPhoneNumber.getText().toString();
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    InviteTask obj = new InviteTask(contact_name, contact_number, ran, uid, true);
                     taskdb = fbase.getReference("Invited_Contacts").child(uid);
                     taskdb.push().setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Snackbar.make(itemView,"Invite Successful",2000).show();
+                                Snackbar.make(itemView, "Invite Successful", 2000).show();
 
                             } else {
-                                Snackbar.make(itemView,"Fail",2000).show();
+                                Snackbar.make(itemView, "Fail", 2000).show();
                             }
                         }
                     });
-                   onInviteClicked(ran,contact_number);
+                    onInviteClicked(ran, contact_number);
 
 
                 }
@@ -113,17 +119,14 @@ public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.
         }
 
 
-
-
-
     }
 
-    private void onInviteClicked(long ran_no,String no) {
+    private void onInviteClicked(long ran_no, String no) {
 
-        SmsManager sms=SmsManager.getDefault();
-        PendingIntent piSent=PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT"), 0);
-        PendingIntent piDelivered=PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_DELIVERED"), 0);
-        sms.sendTextMessage(no, null, ""+ran_no, piSent, piDelivered);
+        SmsManager sms = SmsManager.getDefault();
+        PendingIntent piSent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT"), 0);
+        PendingIntent piDelivered = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_DELIVERED"), 0);
+        sms.sendTextMessage(no, null, "" + ran_no, piSent, piDelivered);
 
     }
 

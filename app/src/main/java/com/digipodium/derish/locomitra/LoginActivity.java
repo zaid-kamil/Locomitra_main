@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         tvforgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent itforgot = new Intent();
+                Intent itforgot = new Intent(LoginActivity.this,ForgotActivity.class);
                 startActivity(itforgot);
             }
         });

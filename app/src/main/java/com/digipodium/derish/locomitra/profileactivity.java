@@ -44,10 +44,10 @@ public class profileactivity extends AppCompatActivity {
     private EditText etname;
     private EditText etphone;
     private RadioGroup radioGroup;
-
+    String imageurl;
     private boolean isImageUpload = false;
     private Uri fullPhotoUri;
-    private Uri ImageUrl;
+
     private CircleImageView ivProfilePic;
 
     @Override
@@ -69,6 +69,7 @@ public class profileactivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+
         mdb = FirebaseDatabase.getInstance();
         Storage = FirebaseStorage.getInstance();
         storageReference = Storage.getReference();
@@ -79,14 +80,16 @@ public class profileactivity extends AppCompatActivity {
         etphone = findViewById(R.id.etphone);
         etname = findViewById(R.id.etname);
         ivProfilePic = findViewById(R.id.ivprofilepic);
-
+        radioGroup.setVisibility(View.INVISIBLE);
+        etname.setVisibility(View.INVISIBLE);
+        etphone.setVisibility(View.INVISIBLE);
         ivProfilePic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
             }
         });
-        mdb.getReference().child("users").child(uid).addValueEventListener(new ValueEventListener() {
+        mdb.getReference("users").child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String phone = dataSnapshot.child("phone").getValue(String.class);
@@ -103,6 +106,7 @@ public class profileactivity extends AppCompatActivity {
         });
 
     }
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -115,6 +119,12 @@ public class profileactivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             fullPhotoUri = data.getData();
+            if (!fullPhotoUri.toString().isEmpty()) {
+                radioGroup.setVisibility(View.VISIBLE);
+                etname.setVisibility(View.VISIBLE);
+                etphone.setVisibility(View.VISIBLE);
+            }
+
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fullPhotoUri);
                 ivProfilePic.setImageBitmap(bitmap);
@@ -126,13 +136,20 @@ public class profileactivity extends AppCompatActivity {
 
     private void saveProfileInfo() {
         int c = 0;
-        String imageurl = null;
+
         String Username = etname.getText().toString();
         String UserPhone = etphone.getText().toString();
-        if (!fullPhotoUri.toString().isEmpty()) {
 
-            imageurl = fullPhotoUri.toString();
+        try {
+            if (!fullPhotoUri.toString().isEmpty()) {
+
+                imageurl = fullPhotoUri.toString();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show();
         }
+
 
         if (UserPhone.length() == 10) {
             c = 1;
@@ -143,18 +160,23 @@ public class profileactivity extends AppCompatActivity {
             gender = "Male";
         else
             gender = "Female";
-        if (!Username.isEmpty() && !UserPhone.isEmpty() && c == 1&&imageurl.isEmpty()) {
+        if (!Username.isEmpty() && !UserPhone.isEmpty() && c == 1) {
 
             mdb.getReference().child("users").child(uid).child("phone").setValue(UserPhone);
             mdb.getReference().child("users").child(uid).child("uname").setValue(Username);
             mdb.getReference().child("users").child(uid).child("gender").setValue(gender);
-            if(!imageurl.isEmpty())
-            mdb.getReference().child("users").child(uid).child("imageUrl").setValue(imageurl);
-
+            if (!imageurl.isEmpty())
+                mdb.getReference().child("users").child(uid).child("imageUrl").setValue(imageurl);
             Toast.makeText(profileactivity.this, "Data saved", Toast.LENGTH_SHORT).show();
+            etname.setText("");
+            etphone.setText("");
+
+
         } else {
-            if (c == 0)
+            if (c == 0 && !UserPhone.isEmpty()) {
                 Toast.makeText(this, "Number Invlaid", Toast.LENGTH_SHORT).show();
+
+            }
             Toast.makeText(this, "Data insufficient", Toast.LENGTH_SHORT).show();
         }
 
@@ -194,7 +216,6 @@ public class profileactivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show();
         }
-
 
 
     }
