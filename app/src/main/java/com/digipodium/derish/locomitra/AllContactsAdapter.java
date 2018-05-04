@@ -126,6 +126,54 @@ public class AllContactsAdapter extends RecyclerView.Adapter<AllContactsAdapter.
         SmsManager sms = SmsManager.getDefault();
         PendingIntent piSent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT"), 0);
         PendingIntent piDelivered = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_DELIVERED"), 0);
+        
+         // Receiver for Sent SMS.
+  registerReceiver(new BroadcastReceiver(){
+    @Override
+    public void onReceive(Context arg0, Intent arg1) {
+      switch (getResultCode())
+      {
+        case Activity.RESULT_OK:
+          Toast.makeText(getBaseContext(), "SMS sent",
+            Toast.LENGTH_SHORT).show();
+          break;
+        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+          Toast.makeText(getBaseContext(), "Check your SMS quota provided by network",
+            Toast.LENGTH_SHORT).show();
+          break;
+        case SmsManager.RESULT_ERROR_NO_SERVICE:
+          Toast.makeText(getBaseContext(), "No service",
+            Toast.LENGTH_SHORT).show();
+          break;
+        case SmsManager.RESULT_ERROR_NULL_PDU:
+          Toast.makeText(getBaseContext(), "Null PDU",
+            Toast.LENGTH_SHORT).show();
+          break;
+        case SmsManager.RESULT_ERROR_RADIO_OFF:
+          Toast.makeText(getBaseContext(), "Radio off",
+            Toast.LENGTH_SHORT).show();
+          break;
+      }
+    }
+  }, new IntentFilter(smsSent));
+ 
+  // Receiver for Delivered SMS.
+  registerReceiver(new BroadcastReceiver(){
+    @Override
+    public void onReceive(Context arg0, Intent arg1) {
+      switch (getResultCode())
+      {
+        case Activity.RESULT_OK:
+          Toast.makeText(getBaseContext(), "SMS delivered",
+            Toast.LENGTH_SHORT).show();
+          break;
+        case Activity.RESULT_CANCELED:
+          Toast.makeText(getBaseContext(), "SMS not delivered",
+            Toast.LENGTH_SHORT).show();
+          break;
+        }
+      }
+    }, new IntentFilter(smsDelivered));
         sms.sendTextMessage(no, null, "" + ran_no, piSent, piDelivered);
 
     }
